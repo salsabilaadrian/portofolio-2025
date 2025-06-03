@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Press Start 2P', monospace;
+}
+
+@keyframes cloudMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes loadingBar {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes charMove {
+  0% { transform: translateX(-100px); }
+  50% { transform: translateX(100px); }
+  100% { transform: translateX(-100px); }
+}
+
+.animate-charMove {
+  animation: charMove 20s ease-in-out infinite;
+}
+
+.animate-clouds {
+  animation: cloudMove 50s linear infinite;
+}
+
+.animate-progress {
+  animation: loadingBar 2s linear infinite;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background-color: #fff; 
+  color: #000;         
+  margin: 0;
+  padding: 0;
+}
+
+/*transtion*/
+@keyframes blink {
+  0%, 100% { opacity: 1 }
+  50% { opacity: 0 }
+}
+
+.pixel-button {
+  font-family: 'Press Start 2P', cursive;
+  border: 2px solid white;
+  background-color: #222;
+  color: white;
+  box-shadow: 2px 2px 0px white;
+  transition: transform 0.1s ease;
+}
+
+.pixel-button:hover {
+  transform: translateY(-2px);
+}
