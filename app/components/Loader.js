@@ -4,42 +4,51 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { preloadPage } from '../utils/preloadHelper';
+import Cloud from '../components/Cloud';
 
 export default function PageTransitionLoader() {
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
+    setShow(true);
     setLoading(true);
+    setFadeOut(false);
 
-    // Preload the target page
     preloadPage(pathname);
 
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
+    const showDuration = 1500;
+    const totalDuration = 2000;
+
+    const fadeOutTimer = setTimeout(() => setFadeOut(true), showDuration);
+    const hideTimer = setTimeout(() => {
+      setShow(false);
+      setLoading(false);
+    }, totalDuration);
+
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(hideTimer);
+    };
   }, [pathname]);
 
-  if (!loading) return null;
+  if (!show) return null;
 
   return (
-    <div className="fixed bg-white inset-0 z-50 flex items-center justify-center bg-transparent">
-      {/* Awan kecil dan responsif */}
-      <div className="absolute top-0 left-0 w-full h-24 z-10 overflow-hidden pointer-events-none">
-        <div className="w-[150%] h-full animate-clouds relative">
-          <Image
-            src="/images/cloud.png"
-            alt="Clouds"
-            fill
-            className="object-contain opacity-70"
-            sizes="100vw"
-            priority
-          />
-        </div>
-      </div>
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-white transition-opacity duration-500 ease-in-out ${
+        fadeOut ? 'opacity-0' : 'opacity-100'
+      }`}
+    >
+      <Cloud top={20} direction="left" speed={50} opacity={0.5} delay={200} />
+      <Cloud top={60} direction="right" speed={20} opacity={0.3} delay={200} />
+      <Cloud top={110} direction="left" speed={20} opacity={0.3} delay={200} />
+
 
       {/* Progress Container */}
       <div className="z-30 flex flex-col items-center xl:pb-50">
-        {/* Karakter */}
         <div className="mb-4">
           <Image
             src="/images/char.png"
@@ -50,8 +59,6 @@ export default function PageTransitionLoader() {
             priority
           />
         </div>
-
-        {/* Progress Bar */}
         <div className="text-center">
           <p className="text-lg font-bold text-gray-700 animate-pulse">Loading</p>
           <div className="w-64 max-w-[80vw] h-3 bg-gray-300 rounded-full mt-2 overflow-hidden relative">

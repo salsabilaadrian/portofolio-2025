@@ -5,22 +5,36 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Press Start 2P', monospace;
+  font-family: 'Press Start 2P', cursive;
+  background-color: #fff; 
+  color: #000;         
+  margin: 0;
+  padding: 0;
+  /* cursor: none; */
 }
 
-@keyframes cloudMove {
-  0% { transform: translateX(0); }
+/*Cloud*/
+@keyframes cloud-move-left {
+  0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
 
-@keyframes loadingBar {
-  0% { left: -100%; }
-  100% { left: 100%; }
+@keyframes cloud-move-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(50%); }
 }
 
+.animate-clouds {
+  animation: cloud-move-left 150s linear infinite;
+}
+.animate-clouds-2 {
+  animation: cloud-move-right 100s linear infinite;
+}
+
+/*Char*/
 @keyframes charMove {
   0% { transform: translateX(-100px); }
-  50% { transform: translateX(100px); }
+  50% { transform: translateX(50px); }
   100% { transform: translateX(-100px); }
 }
 
@@ -28,35 +42,25 @@ body {
   animation: charMove 20s ease-in-out infinite;
 }
 
-.animate-clouds {
-  animation: cloudMove 50s linear infinite;
+/*Loading*/
+@keyframes loadingBar {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 .animate-progress {
   animation: loadingBar 2s linear infinite;
 }
 
-body {
-  font-family: 'Press Start 2P', cursive;
-  background-color: #fff; 
-  color: #000;         
-  margin: 0;
-  padding: 0;
-}
-
-/*transtion*/
-@keyframes blink {
-  0%, 100% { opacity: 1 }
-  50% { opacity: 0 }
-}
-
+/* Button Pixel */
 .pixel-button {
   font-family: 'Press Start 2P', cursive;
   border: 2px solid white;
   background-color: #222;
   color: white;
-  box-shadow: 2px 2px 0px white;
+  box-shadow: 2px 2px 0px black;
   transition: transform 0.1s ease;
+  border-radius: 1rem;
 }
 
 .pixel-button:hover {

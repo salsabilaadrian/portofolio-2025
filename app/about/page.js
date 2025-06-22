@@ -1,40 +1,45 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
-import { aboutPages } from '../data/aboutPages';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { aboutPages } from '../data/aboutData';
+import HamburgerMenu from '../components/HamburgerMenu';
+import Cloud from '../components/Cloud';
+import BackgroundAudio from '../components/Audio';
 
 export default function AboutPage() {
   const [page, setPage] = useState(0);
-  const totalPages = aboutPages.length;
+  const [isVisible, setIsVisible] = useState(false);
   const current = aboutPages[page];
+  const isLastPage = page === aboutPages.length - 1;
 
-  const handleNext = () => {
-    if (page < totalPages - 1) setPage(page + 1);
-  };
+  const menu = [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/transition?to=/about' },
+    { label: 'Experience', href: '/experience' },
+    { label: 'Porto', href: '/porto' },
+    { label: 'Certificate', href: '/certificate' }
+  ];
 
-  const handleBack = () => {
-    if (page > 0) setPage(page - 1);
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsVisible(true), 2500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
-    <div className="relative bg-blue-100 w-screen h-screen bg-cover bg-center flex items-center justify-center overflow-hidden">
+    <div className="relative w-screen h-screen bg-cover bg-center flex items-center justify-center overflow-hidden">
+      <HamburgerMenu menuItems={menu} />
+      <BackgroundAudio src="/audio/experience.mp3" volume={1.0} delay={2500} className='fixed top-4 right-10 mr-4'/>
+      
+      <Cloud top={10} direction="left" speed={150} opacity={0.2} delay={2725}/>
+      <Cloud top={40} direction="right" speed={40} opacity={0.2} delay={2725}/>
+      <Cloud top={150} direction="right" speed={100} opacity={0.3} delay={2725}/>
+      <Cloud top={100} direction="left" speed={30} opacity={0.4} delay={2725}/> 
+      <Cloud top={200} direction="right" speed={200} opacity={0.5} delay={2725}/>
+      <Cloud top={250} direction="left" speed={150} opacity={0.5} delay={2725}/>     
 
-      {/* BACKGROUND AWAN */}
-      <div className="absolute top-0 left-0 w-full h-24 z-10 overflow-hidden pointer-events-none">
-        <div className="w-[150%] h-full animate-clouds relative">
-          <Image
-            src="/images/cloud.png"
-            alt="Clouds"
-            fill
-            className="object-contain opacity-70"
-            sizes="100vw"
-            priority
-          />
-        </div>
-      </div>
-
-      {/* BACKGROUND CITY */}
+      {/* City Background */}
       <div className="absolute bottom-0 w-full z-0">
         <Image
           src="/images/city.png"
@@ -46,43 +51,58 @@ export default function AboutPage() {
         />
       </div>
 
-      {/* KONTEN UTAMA FIX 1000x500 */}
-      <div className="relative z-20 w-[1000px] h-[500px] bg-white/80 p-6 rounded-xl shadow-lg flex flex-col justify-between overflow-hidden">
-        {/* Gambar dan Konten */}
-        <div className={`flex ${current.photoPosition === 'right' ? 'flex-row-reverse' : 'flex-row'} items-start gap-6`}>
-          {current.photoSrc && (
-            <Image
-              src={current.photoSrc}
-              alt="Section Image"
-              width={current.photoSize?.width || 120}
-              height={current.photoSize?.height || 120}
-              className="rounded-lg"
-            />
-          )}
-          <div className="flex-1 text-sm">{current.content}</div>
+      {/* Main Container */}
+      <div
+        className={`relative z-20 w-[90%] max-w-screen-md h-[550px] bg-gray-100/80 p-6 rounded-xl shadow-2xl shadow-black/60 flex flex-col overflow-hidden transition-all duration-700 ease-out transform
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      >
+        {/* Top Navigation */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          <button
+            onClick={() => setPage((prev) => Math.max(0, prev - 1))}
+            disabled={page === 0}
+            className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30"
+          >
+            {'<'}
+          </button>
+          <button
+            onClick={() => setPage((prev) => Math.min(aboutPages.length - 1, prev + 1))}
+            disabled={isLastPage}
+            className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30"
+          >
+            {'>'}
+          </button>
         </div>
 
-        {/* Info */}
-        {current.info && (
-          <div className="mt-2 text-sm">{current.info}</div>
+        {/* Next Stage Button */}
+        {isLastPage && (
+          <div className="absolute top-4 right-4">
+            <Link href="/experience">
+              <button className="text-lg cursor-pointer border border-gray-500 rounded-md px-3 py-1 hover:bg-gray-200 disabled:opacity-30">
+                Next
+              </button>
+            </Link>
+          </div>
         )}
 
-        {/* Tombol navigasi */}
-        <div className="flex gap-4 mt-4 justify-end w-full">
-          <button
-            onClick={handleBack}
-            disabled={page === 0}
-            className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50 pixel"
-          >
-            &larr; Back
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={page === totalPages - 1}
-            className="px-4 py-2 bg-gray-800 text-white rounded-md disabled:opacity-50 pixel"
-          >
-            Next &rarr;
-          </button>
+        {/* Scrollable Content */}
+        <div className="overflow-y-auto mt-12 flex-1 pr-2">
+          <div className={`flex flex-col sm:flex-row ${current.photoPosition === 'right' ? 'sm:flex-row-reverse' : ''} items-start gap-6`}>
+            {current.photoSrc && (
+              <Image
+                src={current.photoSrc}
+                alt="Section Image"
+                width={current.photoSize?.width || 120}
+                height={current.photoSize?.height || 120}
+                className="rounded-lg mx-auto sm:mx-0"
+              />
+            )}
+            <div className="flex-1 text-sm">{current.content}</div>
+          </div>
+
+          {current.info && (
+            <div className="mt-4 text-sm">{current.info}</div>
+          )}
         </div>
       </div>
     </div>
