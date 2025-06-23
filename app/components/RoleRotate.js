@@ -15,7 +15,7 @@ export default function RoleRotate() {
 
   return (
     <p className="text-2xl lg:text-3xl xl:text-5xl transition-all duration-500">
-      {roles.length[index]}
+      {roles[index]}
     </p>
   )
 }
