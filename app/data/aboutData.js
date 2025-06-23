@@ -83,8 +83,8 @@ export const aboutPages = [
 
         <p className="pt-2">
           This study analyzes the potential for solar panel development in West Jakarta by detecting rooftops using the Mask R-CNN model,
-          comparing the accuracy of ResNet 34 and ResNet 50. The results show that ResNet 50 performs better with 40% accuracy compared to
-          ResNet 34's 7.9%, generating a potential of over 6,800 MWh of electricity per year to support sustainable energy goals.
+          comparing the accuracy of ResNet 34 and ResNet 50. The results show that ResNet 50&apos;s performs better with 40% accuracy compared to
+          ResNet 34&apos;s 7.9%, generating a potential of over 6,800 MWh of electricity per year to support sustainable energy goals.
         </p>
       </>
     ),
