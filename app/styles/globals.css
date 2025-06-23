@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Press Start 2P', cursive;
+  font-family: 'Press Start 2P';
   background-color: #fff; 
   color: #000;         
   margin: 0;
@@ -53,7 +53,7 @@ body {
 }
 
 /* Button Pixel */
-.pixel-button {
+/* .pixel-button {
   font-family: 'Press Start 2P', cursive;
   border: 2px solid white;
   background-color: #222;
@@ -61,7 +61,7 @@ body {
   box-shadow: 2px 2px 0px black;
   transition: transform 0.1s ease;
   border-radius: 1rem;
-}
+} */
 
 .pixel-button:hover {
   transform: translateY(-2px);
