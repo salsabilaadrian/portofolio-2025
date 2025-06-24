@@ -5,18 +5,12 @@ import Image from 'next/image'
 import RoleRotate from './components/RoleRotate'
 import MenuLinks from './components/MenuLinks'
 import Cloud from './components/Cloud'
-import BackgroundAudio from './components/Audio';
+import BackgroundAudio from './components/Audio'
 import SocialLinks from './components/SocialLinks'
 
 const socialLinks = [
-  { href: '/CV.pdf', 
-    icon: '/logo/cv.svg', 
-    alt: 'CV' 
-  },
-  { href: 'https://wa.me/6285795281890', 
-    icon: '/logo/wa.png',
-    alt: 'WhatsApp' 
-  },
+  { href: '/CV.pdf', icon: '/logo/cv.svg', alt: 'CV' },
+  { href: 'https://wa.me/6285795281890', icon: '/logo/wa.png', alt: 'WhatsApp' },
   {
     href: 'https://mail.google.com/mail/?view=cm&fs=1&to=cacasalsabilaadrian@gmail.com',
     icon: '/logo/gmail.png',
@@ -50,40 +44,21 @@ export default function HomePage() {
   const fadeClass = (delay = 0) =>
     `${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} transition-all duration-700 ease-out delay-[${delay}ms]`
 
-  const menu = [
-    { label: 'CV', href: '/cv.pdf', isPDF: true },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/salsabila-adrian-a66741226/', isExternal: true },
-    { label: 'Medium', href: 'https://medium.com/@salsabilaadrian', isExternal: true },
-    { label: 'Github', href: 'https://github.com/', isExternal: true },
-  ]
-
   return (
-    <main className="relative w-full h-screen overflow-hidden">
+    <main className="relative w-full min-h-screen overflow-hidden bg-white text-black font-pressStart">
       <BackgroundAudio
         src="/audio/home.mp3"
         volume={1.0}
         delay={2500}
-        className="fixed justify-end right-4" // kamu bebas atur ini
+        className="fixed right-4 z-10"
       />
-
-      {/* Ground */}
-      <div className={`absolute bottom-0 w-full ${fadeClass(200)}`}>
-        <Image
-          src="/images/ground.png"
-          alt="Ground"
-          width={1920}
-          height={200}
-          className="w-full h-auto object-contain"
-          priority
-        />
-      </div>
 
       {/* Cloud Layers */}
       <Cloud top={30} direction="left" speed={120} opacity={0.5} delay={2100} />
       <Cloud top={80} direction="right" speed={50} opacity={0.3} delay={2100} />
 
       {/* Character */}
-      <div className={`hidden lg:block absolute bottom-[160px] left-3/4 translate-x-1/2 ${fadeClass(600)}`}>
+      <div className={`hidden z-5 lg:block absolute bottom-[160px] left-3/4 translate-x-1/2 ${fadeClass(600)}`}>
         <Image
           src="/images/char.png"
           alt="Character"
@@ -95,21 +70,29 @@ export default function HomePage() {
       </div>
 
       {/* Content */}
-      <div className={`relative grid pt-35 sm:grid-cols-2 xl:grid-cols-3 gap-4 px-5 xl:px-10 ${fadeClass(900)}`}>
-         <div className="justify-center gap-4 pb-5">
+      <div className={`relative z-5 max-w-7xl mx-auto pt-28 px-6 grid gap-8 grid-cols-1 lg:grid-cols-3 ${fadeClass(900)}`}>
+        <div className="flex flex-col gap-2">
           <RoleRotate />
           <SocialLinks links={socialLinks} />
         </div>
-        <div className="col-span-2 xl:pl-20">
-          <p className="text-2xl xl:text-5xl mb-2">Welcome, Player!</p>
-          <p className="text-lg xl:text-2xl pb-5">
-            Ready to embark on a journey through the quests?
-          </p>
-          <p className="text-lg xl:text-2xl mb-4">
-            Choose your stage and begin the adventure!
-          </p>
+        <div className="lg:pl-20 lg:col-span-2">
+          <p className="text-xl sm:text-2xl xl:text-4xl mb-2">Welcome, Player!</p>
+          <p className="text-sm sm:text-lg xl:text-2xl pb-5">Ready to embark on a journey through the quests?</p>
+          <p className="text-sm sm:text-lg xl:text-2xl mb-4">Choose your stage and begin the adventure!</p>
           <MenuLinks />
         </div>
+      </div>
+
+      {/* Ground */}
+      <div className={`absolute bottom-0 w-full ${fadeClass(200)}`}>
+        <Image
+          src="/images/ground.png"
+          alt="Ground"
+          width={1600}
+          height={200}
+          className="w-full h-auto object-contain"
+          priority
+        />
       </div>
     </main>
   )
