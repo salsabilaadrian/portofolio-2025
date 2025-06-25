@@ -15,6 +15,17 @@ import {
 } from '@heroicons/react/24/solid'
 
 export default function ExperiencePage() {
+  useEffect(() => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'page-view',
+        url: '/porto'
+      })
+    })
+  }, [])
+
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [openSections, setOpenSections] = useState({});
@@ -38,7 +49,7 @@ export default function ExperiencePage() {
 
   const menu = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/transition?to=/about' },
+    { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Porto', href: '/porto' },
     { label: 'Certificate', href: '/certificate' }

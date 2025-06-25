@@ -9,6 +9,17 @@ import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
 
 export default function AboutPage() {
+  useEffect(() => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'page-view',
+        url: '/about'
+      })
+    })
+  }, [])
+
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const current = aboutPages[page];
@@ -16,7 +27,7 @@ export default function AboutPage() {
 
   const menu = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/transition?to=/about' },
+    { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Porto', href: '/porto' },
     { label: 'Certificate', href: '/certificate' }

@@ -7,6 +7,7 @@ import { experienceData } from '../data/experienceData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
+import { trackEvent } from '../lib/trackEvent'
 import {
   DocumentIcon,
   GlobeAltIcon,
@@ -15,6 +16,17 @@ import {
 } from '@heroicons/react/24/solid'
 
 export default function ExperiencePage() {
+  useEffect(() => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'page-view',
+        url: '/experience'
+      })
+    })
+  }, [])
+
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [openSections, setOpenSections] = useState({});
@@ -38,7 +50,7 @@ export default function ExperiencePage() {
 
   const menu = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/transition?to=/about' },
+    { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Porto', href: '/porto' },
     { label: 'Certificate', href: '/certificate' }
@@ -103,6 +115,7 @@ export default function ExperiencePage() {
             rel="noopener noreferrer"
             download
             className="flex items-center gap-2 text-sm px-3 py-2 mb-1 border border-gray-400 rounded-md hover:bg-white bg-gray-100 text-gray-700 hover:text-black font-medium"
+            onClick={() => trackEvent('download-cv', '/cv.pdf')}
           >
             <span>↓</span>
           </Link>

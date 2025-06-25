@@ -8,12 +8,23 @@ import BackgroundAudio from '../components/Audio';
 import { certificateData } from '../data/certificateData.js';
 
 export default function CertificatePage() {
+  useEffect(() => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'page-view',
+        url: '/certificate'
+      })
+    })
+  }, [])
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   const menu = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/transition?to=/about' },
+    { label: 'About', href: '/about' },
     { label: 'Experience', href: '/experience' },
     { label: 'Porto', href: '/porto' },
     { label: 'Certificate', href: '/certificate' }
