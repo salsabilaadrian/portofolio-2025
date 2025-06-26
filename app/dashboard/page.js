@@ -24,7 +24,7 @@ export default function DashboardPage() {
       const { data, error: eventError } = await supabase
         .from('click_events')
         .select('*')
-        .order('created_at', { ascending: false }) // ✅ FIXED ORDER FIELD
+        .order('created_at', { ascending: false })
 
       if (eventError) {
         console.error('Supabase event error:', eventError)
@@ -64,7 +64,7 @@ export default function DashboardPage() {
           <tr className="bg-gray-100">
             <th className="p-2">Type</th>
             <th className="p-2">URL</th>
-            <th className="p-2">Time</th>
+            <th className="p-2">Time (UTC)</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +75,7 @@ export default function DashboardPage() {
                 <td className="p-2">{e.url}</td>
                 <td className="p-2">
                   {e.created_at
-                    ? new Date(e.created_at).toLocaleString()
+                    ? new Date(e.created_at).toUTCString()
                     : '—'}
                 </td>
               </tr>
