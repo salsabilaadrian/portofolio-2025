@@ -7,6 +7,7 @@ import { experienceData } from '../data/experienceData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
+import { trackEvent } from '../lib/trackEvent' 
 import {
   DocumentIcon,
   GlobeAltIcon,
@@ -109,7 +110,7 @@ export default function ExperiencePage() {
             rel="noopener noreferrer"
             download
             className="flex items-center gap-2 text-sm px-3 py-2 mb-1 border border-gray-400 rounded-md hover:bg-white bg-gray-100 text-gray-700 hover:text-black font-medium"
-            onClick={() => trackEvent('download-cv', '/cv.pdf')}
+            onClick={() => trackEvent('download-cv', '/experience/cv.pdf')}
           >
             <span>↓</span>
           </Link>

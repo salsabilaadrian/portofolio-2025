@@ -9,21 +9,20 @@ const supabase = createClient(
 export async function POST(req) {
   try {
     const body = await req.json()
-    const { type, url } = body
+    const { type, url, user_id } = body
 
-    if (!type || !url) {
-      return NextResponse.json({ error: 'Missing type or url' }, { status: 400 })
+    if (!type || !url || !user_id) {
+      return NextResponse.json({ error: 'Missing type, url, or user_id' }, { status: 400 })
     }
 
     const { error } = await supabase
       .from('click_events')
-      .insert([{ type, url }])
+      .insert([{ type, url, user_id }])
 
     if (error) {
       console.error('Supabase insert error:', error)
       return NextResponse.json({ error: error.message, details: error }, { status: 500 })
     }
-
 
     return NextResponse.json({ success: true })
   } catch (err) {
