@@ -24,9 +24,14 @@ export default function DashboardPage() {
       const { data, error: eventError } = await supabase
         .from('click_events')
         .select('*')
-        .order('timestamp', { ascending: false })
+        .order('created_at', { ascending: false }) // ✅ FIXED ORDER FIELD
 
-      if (!eventError) setEvents(data)
+      if (eventError) {
+        console.error('Supabase event error:', eventError)
+      } else {
+        setEvents(data)
+      }
+
       setLoading(false)
     }
 
@@ -63,13 +68,25 @@ export default function DashboardPage() {
           </tr>
         </thead>
         <tbody>
-          {events.map(e => (
-            <tr key={e.id} className="border-t">
-              <td className="p-2">{e.type}</td>
-              <td className="p-2">{e.url}</td>
-              <td className="p-2">{new Date(e.timestamp).toLocaleString()}</td>
+          {events.length > 0 ? (
+            events.map(e => (
+              <tr key={e.id} className="border-t">
+                <td className="p-2">{e.type}</td>
+                <td className="p-2">{e.url}</td>
+                <td className="p-2">
+                  {e.created_at
+                    ? new Date(e.created_at).toLocaleString()
+                    : '—'}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3" className="p-4 text-center text-gray-500">
+                No events found.
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

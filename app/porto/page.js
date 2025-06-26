@@ -15,16 +15,11 @@ import {
 } from '@heroicons/react/24/solid'
 
 export default function ExperiencePage() {
-  useEffect(() => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'page-view',
-        url: '/porto'
-      })
-    })
-  }, [])
+   useEffect(() => {
+    import('../lib/trackEvent').then(({ trackEvent }) => {
+      trackEvent('pageview', '/porto')
+    });
+  }, []);
 
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);

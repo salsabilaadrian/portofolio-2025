@@ -34,16 +34,11 @@ const socialLinks = [
 ]
 
 export default function HomePage() {
-  useEffect(() => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'page-view',
-        url: '/'
-      })
-    })
-  }, [])
+   useEffect(() => {
+    import('./lib/trackEvent').then(({ trackEvent }) => {
+      trackEvent('pageview', '/')
+    });
+  }, []);
   
   const [isVisible, setIsVisible] = useState(false)
 

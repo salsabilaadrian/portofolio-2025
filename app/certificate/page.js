@@ -9,15 +9,10 @@ import { certificateData } from '../data/certificateData.js';
 
 export default function CertificatePage() {
   useEffect(() => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'page-view',
-        url: '/certificate'
-      })
-    })
-  }, [])
+    import('../lib/trackEvent').then(({ trackEvent }) => {
+      trackEvent('pageview', '/certificate')
+    });
+  }, []);
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);

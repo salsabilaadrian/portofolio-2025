@@ -10,15 +10,10 @@ import BackgroundAudio from '../components/Audio';
 
 export default function AboutPage() {
   useEffect(() => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'page-view',
-        url: '/about'
-      })
-    })
-  }, [])
+    import('../lib/trackEvent').then(({ trackEvent }) => {
+      trackEvent('pageview', '/about')
+    });
+  }, []);
 
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);

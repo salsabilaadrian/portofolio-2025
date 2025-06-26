@@ -7,7 +7,6 @@ import { experienceData } from '../data/experienceData';
 import HamburgerMenu from '../components/HamburgerMenu';
 import Cloud from '../components/Cloud';
 import BackgroundAudio from '../components/Audio';
-import { trackEvent } from '../lib/trackEvent'
 import {
   DocumentIcon,
   GlobeAltIcon,
@@ -17,15 +16,10 @@ import {
 
 export default function ExperiencePage() {
   useEffect(() => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'page-view',
-        url: '/experience'
-      })
-    })
-  }, [])
+    import('../lib/trackEvent').then(({ trackEvent }) => {
+      trackEvent('pageview', '/experience')
+    });
+  }, []);
 
   const [page, setPage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
