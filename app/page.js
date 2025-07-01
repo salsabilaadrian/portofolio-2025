@@ -55,7 +55,7 @@ export default function HomePage() {
       <BackgroundAudio
         src="/audio/home.mp3"
         volume={1.0}
-        delay={2500}
+        delay={0}
         className="fixed right-4 z-10"
       />
 
