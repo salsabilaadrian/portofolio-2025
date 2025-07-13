@@ -199,6 +199,7 @@ export default function ExperiencePage() {
                                           className="text-blue-500 underline hover:text-blue-700 transition-colors"
                                           target="_blank"
                                           rel="noopener noreferrer"
+                                          onClick={() => trackEvent(`link-click-${linkObj.label.toLowerCase().replace(/\s/g, '-')}`, linkObj.url)}
                                         >
                                           {getIconForLabel(linkObj.label)}
                                           {linkObj.label}

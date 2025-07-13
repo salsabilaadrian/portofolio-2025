@@ -66,6 +66,16 @@ export const experienceData = [
               subdesc: 'Translated healthcare business processes into effective tech solutions through hands-on system modeling.'
             },
           ],
+          links: [
+            {
+              label: 'Certificate',
+              url: 'https://drive.google.com/file/d/1gpIkz5-_n62-bPACOi1Oui2DGxA2-MZ3/view?usp=sharing',
+            },
+            {
+              label: 'Project',
+              url: 'https://docs.google.com/document/d/1qDKivLZKiU-yR8VzaQSbofnggPQwXvDOdcouF7PNx5k/edit?usp=sharing',
+            },
+          ],
           skills: ['SDLC', 'Database Design System', 'System Analysis'],
           tools: ['Figma', 'SQL', 'Draw.io']
         }
@@ -192,6 +202,10 @@ export const experienceData = [
             },
           ],
           links: [
+            {
+              label: 'Project',
+              url: 'https://docs.google.com/presentation/d/1_6UYB_d2s5hZc8QNbMzo5BZBOC6u3Qr649ZJIh4nmi0/edit?usp=sharing',
+            },
             {
               label: 'Certificate',
               url: 'https://drive.google.com/file/d/1KEKG_mnIW6eK6c-XTVpaF_UUe_gAqXYo/view?usp=sharing',

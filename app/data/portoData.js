@@ -54,8 +54,34 @@ export const portoData = [
       ],
     }
   },
+   {
+    year: 'Data',
+    sections: {
+      'Data Science': [
+        {
+          title: 'FGA x BINAR Academy',
+          position: 'Data Science',
+          date: '2024',
+          description: [
+            {
+              subtitle: 'Prediction customer churn for telecomunication',
+              // subdesc: 'Gain learning in managing a full project lifecycle—from initiation, planning, and execution to closure—using structured methodologies.'
+            },
+          ],
+          links: [
+            {
+              label: 'Project',
+              url: 'https://docs.google.com/presentation/d/1_6UYB_d2s5hZc8QNbMzo5BZBOC6u3Qr649ZJIh4nmi0/edit?usp=sharing',
+            },
+          ],
+          // skills: ['IT Project Managment', 'Project Timeline', 'Effort Estimation'],
+          // tools: ['Microsoft Office']
+        },
+      ],
+    }
+  },
   {
-    year: 'Programming Language',
+    year: 'Programming',
     sections: {
       'Mobile Proggramming': [
         {
@@ -203,4 +229,5 @@ export const portoData = [
       ]
     }
   },
+  
 ];
